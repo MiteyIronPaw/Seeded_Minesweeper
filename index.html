@@ -1,88 +1,22 @@
-<html>
 <head>
-	<title>Mines</title>
-	<script type="text/javascript" src="board.js" ></script>
-	<script type="text/javascript" src="square.js" ></script>
-	<script type="text/javascript" src="input.js" ></script>
-	<script type="text/javascript" src="timer.js" ></script>
-	<script type="text/javascript" src="seedrandom.js" ></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mines</title>
+    <link rel="stylesheet" type="text/css" href="play/style.css">
 </head>
-<body style="background-color: #C0C0C0;margin: 0;">
-	<canvas id="game" style="margin-left: auto; margin-right: auto; display: block;top:0;"></canvas>
-	<script>
-	    var parms = document.URL.split("?");
-		var Seed = unescape(parms[parms.length-1]);
-		if(parms.length == 1){Seed = "";}
-		
-		//30 by 16 w 99 mines
-		var Board = new Array(480);
 
-		var canvas = document.getElementById("game");
-		var context = canvas.getContext("2d");
-		
-        resize_canvas()
-		
-		var GameOver = false;
-		var win = false;
-		var flags_left = 99;
-		var mines_left = 99;
-		
-		loadBoard(canvas, Board, Seed);
-
-		canvas.addEventListener('mousemove', function(evt) {
-			var mousePos = getMousePos(canvas, evt);
-			runMouseMove(mousePos);
-		}, false);
-		
-		canvas.addEventListener('mousedown', function(evt) {
-		    if(time == 0){start_time();}
-			if(!GameOver){
-			    var mousePos = getMousePos(canvas, evt);
-			
-			    //Left or right click
-			    if(evt.button == 2){runMouseRight(mousePos);}
-			    else{runMouseDown(mousePos);}
-			}
-			
-		}, false);
-		
-		//Prevent context menu
-		canvas.addEventListener('contextmenu', function(evt) {evt.preventDefault();return false;}, false);
-		
-	    
-		function GameLoop(){
-			context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
-			
-			if(!GameOver){
-				renderBoard();
-			}else{
-				renderBoard();
-				renderMines();
-			}
-			context.fillStyle = "#000000";
-			if(Seed != ""){
-				context.fillText("Seed", 0, 20);
-				context.fillText(Seed, 120, 20);
-			}else{
-				context.fillText("Random game", 0, 20);
-			}
-			context.fillText("Time", 0, 40);
-			context.fillText(get_time(), 120, 40);
-			context.fillText("Flags", 0, 60);
-			context.fillText(flags_left, 120, 60);
-			context.fillText("Mines", 0, 80);
-			if(GameOver){
-			    context.fillText(mines_left, 120, 80);
-			    if(win){context.fillText("Win :)", 300, 80);}
-			    else{context.fillText("Loss :(", 300, 80);}
-			}else{
-			    context.fillText("???", 120, 80);
-			}
-		}
-
-
-		var lastLoop = new Date;
-		setInterval(GameLoop, 50);
-	</script>
+<body>
+    Seeded Minesweeper
+    <form action="play/">
+        <label for="seed"></label><br>
+        <input type="text" name="seed">
+        <input type="submit" value="Seeded Game">
+    </form>
+    <a href="play/">
+        <button>
+            Random Game
+        </button>
+    </a>
 </body>
+
 </html>
