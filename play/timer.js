@@ -9,8 +9,14 @@ function get_time(){
     if(GameOver){
         return stopped_time;
     }else{
-        if(time == 0){return 0;}
-        return (Date.now()-time)/1000;
+        if(time == 0){
+            return 0;
+        }
+
+        let time_delta = Date.now() - time;
+
+        //Round and convert to seconds
+        return Math.round(time_delta/10)/100;
     }
 }
 
