@@ -53,16 +53,13 @@ function renderBoard(){
 			                       "rgba(186, 4, 24, 0.1)","rgba(192, 0, 0, 0.1)"];
 			
 			
-			context.font="22px Arial";
+			context.font="bold 22px Arial";
 			if(Board[i].state == 1){
 				if(Board[i].ID > 0){
 			        draw_square(Board[i], 0, colours_shade_alpha[Board[i].ID-1]);
 			        
 			        context.fillStyle = colours[Board[i].ID-1];
-				    context.fillText(Board[i].ID, (Board[i].X1+Board[i].X2)/2-5, (Board[i].Y1+Board[i].Y2)/2+5);
-				    
-			        context.fillStyle = colours_shade[Board[i].ID-1];
-				    context.fillText(Board[i].ID, (Board[i].X1+Board[i].X2)/2-4, (Board[i].Y1+Board[i].Y2)/2+6);
+				    context.fillText(Board[i].ID, (Board[i].X1+Board[i].X2)/2-5, (Board[i].Y1+Board[i].Y2)/2+5);  
 				}
 			}
 		}

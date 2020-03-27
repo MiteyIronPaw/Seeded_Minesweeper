@@ -64,6 +64,8 @@
 				renderBoard();
 				renderMines();
 			}
+
+			context.font="100 22px Arial";
 			context.fillStyle = "#000000";
 			if(Seed != ""){
 				context.fillText("Seed", 0, 20);
@@ -84,7 +86,7 @@
 			    context.fillText("???", 120, 80);
 			}
 		}
-		
+
 		setInterval(GameLoop, 16);
 	</script>
 </body>
