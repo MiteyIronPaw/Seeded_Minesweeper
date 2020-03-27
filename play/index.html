@@ -13,6 +13,7 @@
 <body>
 	<a id="home" href="../">Home</a>
 	<canvas id="game"></canvas>
+	<canvas id="shadows"></canvas>
 	<script>
 	    var parms = document.URL.split("?");
 		var Seed = unescape(parms[parms.length-1]);
@@ -24,8 +25,14 @@
 
 		var canvas = document.getElementById("game");
 		var context = canvas.getContext("2d");
+
+		var shadow_canvas = document.getElementById("shadows");
+		var shadow_context = shadow_canvas.getContext("2d");
 		
-        resize_canvas()
+		resize_canvas()
+		
+		shadow_canvas.height = canvas.height;
+    	shadow_canvas.width = canvas.width;
 		
 		var GameOver = false;
 		var win = false;
@@ -54,9 +61,41 @@
 		//Prevent context menu
 		canvas.addEventListener('contextmenu', function(evt) {evt.preventDefault();return false;}, false);
 		
-	    
+		
+		renderShadows(shadow_context);
+
+
+		function update_text() {
+			context.clearRect(0, 0, canvas.width, 100);
+
+			context.font="100 22px Arial";
+			context.fillStyle = "#000000";
+			if(Seed != ""){
+				context.fillText("Seed", 10, 20);
+				context.fillText(Seed, 120, 20);
+			}else{
+				context.fillText("Random game", 10, 20);
+			}
+			context.fillText("Time", 10, 40);
+			context.fillText(get_time(), 120, 40);
+			context.fillText("Flags", 10, 60);
+			context.fillText(flags_left, 120, 60);
+			context.fillText("Mines", 10, 80);
+			if(GameOver){
+			    context.fillText(mines_left, 120, 80);
+			    if(win){
+					context.fillText("Win :)", 300, 80);
+				}
+			    else{
+					context.fillText("Loss :(", 300, 80);
+				}
+			}else{
+			    context.fillText("???", 120, 80);
+			}
+		}
+
 		function GameLoop(){
-			context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
+			context.clearRect(0, 100, canvas.width, canvas.height-100);
 			
 			if(!GameOver){
 				renderBoard();
@@ -65,29 +104,11 @@
 				renderMines();
 			}
 
-			context.font="100 22px Arial";
-			context.fillStyle = "#000000";
-			if(Seed != ""){
-				context.fillText("Seed", 0, 20);
-				context.fillText(Seed, 120, 20);
-			}else{
-				context.fillText("Random game", 0, 20);
-			}
-			context.fillText("Time", 0, 40);
-			context.fillText(get_time(), 120, 40);
-			context.fillText("Flags", 0, 60);
-			context.fillText(flags_left, 120, 60);
-			context.fillText("Mines", 0, 80);
-			if(GameOver){
-			    context.fillText(mines_left, 120, 80);
-			    if(win){context.fillText("Win :)", 300, 80);}
-			    else{context.fillText("Loss :(", 300, 80);}
-			}else{
-			    context.fillText("???", 120, 80);
-			}
+			// update_text();
 		}
 
 		setInterval(GameLoop, 16);
+		setInterval(update_text, 64);
 	</script>
 </body>
 </html>

@@ -2,9 +2,8 @@ function loadBoard(canvas, Board, Seed){
 	//Square 15, 8 is always going to be the starting square
 	
 	
-	var X = width;
 	var Y_off_set = 100;
-	var Y = height;
+	var X_off_set = 10;
 	var Size = height / 16;
 	var Gap = Size / 10;
 	//(7/30)*Y // Trust me ;)
@@ -14,7 +13,7 @@ function loadBoard(canvas, Board, Seed){
 	//
 	for(x = 0; x < 30; ++x){
 		for(y = 0; y < 16; ++y){
-			Board[y*30+x] = new Polygon(x*Size, y*Size+Y_off_set, Size-Gap, Size-Gap, 0, x, y);
+			Board[y*30+x] = new Polygon(x*Size+X_off_set, y*Size+Y_off_set, Size-Gap, Size-Gap, 0, x, y);
 		}
 	}
 	
@@ -145,7 +144,7 @@ function check_win(){
 function resize_canvas(){
 	
     height =  document.body.clientHeight-100;
-    width =  document.body.clientWidth;
+    width =  document.body.clientWidth - 20;
 		
     //Work out which is smaller a set the canvas to fit the 30:16 ratio
     if(width*(8/15) > height){
@@ -156,7 +155,7 @@ function resize_canvas(){
 		    
 		    
     canvas.height = document.body.clientHeight;
-    canvas.width = width;
+    canvas.width = width+20;
 }
 
 
