@@ -42,6 +42,8 @@ function Polygon(X, Y, W, H, ID, x, y){
 
 
 function renderShadows(context){
+	context.clearRect(0, 0, shadow_canvas.width, shadow_canvas.height);
+
 	context.save();
 	context.shadowColor = "rgba(0,0,0,0.9)";
 	context.shadowBlur = 1;

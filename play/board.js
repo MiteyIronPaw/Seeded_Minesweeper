@@ -13,17 +13,24 @@ function loadBoard(canvas, Board, Seed){
 	//
 	for(x = 0; x < 30; ++x){
 		for(y = 0; y < 16; ++y){
-			Board[y*30+x] = new Polygon(x*Size+X_off_set, y*Size+Y_off_set, Size-Gap, Size-Gap, 0, x, y);
+            let old_square = null;
+
+            if(Board[y*30+x]) {
+                old_square = Board[y*30+x];
+            }
+            Board[y*30+x] = new Polygon(x*Size+X_off_set, y*Size+Y_off_set, Size-Gap, Size-Gap, 0, x, y);
+            
+            if(old_square) {
+                Board[y*30+x].state = old_square.state;
+            }
 		}
 	}
 	
 	
 	//
 	//  Place Mines
-	//
-	if(Seed != ""){
-		Math.seedrandom(Seed);
-	}
+    //
+    Math.seedrandom(Seed);
 	for(n = 0; n < 99;){
 		x = Math.round(Math.random()*29)
 		y = Math.round(Math.random()*15)
@@ -154,8 +161,14 @@ function resize_canvas(){
     }
 		    
 		    
-    canvas.height = document.body.clientHeight;
+    canvas.height = height+100;
     canvas.width = width+20;
+
+    shadow_canvas.height = canvas.height;
+    shadow_canvas.width = canvas.width;
+
+    loadBoard(canvas, Board, Seed);
+    renderShadows(shadow_context);
 }
 
 

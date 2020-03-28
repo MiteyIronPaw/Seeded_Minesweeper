@@ -28,18 +28,18 @@
 
 		var shadow_canvas = document.getElementById("shadows");
 		var shadow_context = shadow_canvas.getContext("2d");
-		
+
+		if(Seed == ""){
+			Seed = Math.random();
+		}
+
+		window.addEventListener("resize", resize_canvas);
 		resize_canvas()
-		
-		shadow_canvas.height = canvas.height;
-    	shadow_canvas.width = canvas.width;
 		
 		var GameOver = false;
 		var win = false;
 		var flags_left = 99;
 		var mines_left = 99;
-		
-		loadBoard(canvas, Board, Seed);
 
 		canvas.addEventListener('mousemove', function(evt) {
 			var mousePos = getMousePos(canvas, evt);
