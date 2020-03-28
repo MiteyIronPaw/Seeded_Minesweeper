@@ -1,6 +1,9 @@
+/* https://palettable.io/FFFAF2-8E9699-93A6AA-292627 */
+
+
 body {
     text-align: center;
-    background-color: #C0C0C0;
+    background-color: #FFFAF2;
     margin: 0;
     font-family: Arial;
     font-size: 22;
@@ -17,6 +20,8 @@ canvas {
 
 #home {
     position: fixed;
+    padding-top: 10px;
+    color: #202B33;
 }
 
 #shadows {

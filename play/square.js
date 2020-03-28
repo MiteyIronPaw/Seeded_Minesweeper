@@ -42,21 +42,20 @@ function Polygon(X, Y, W, H, ID, x, y){
 
 
 function renderShadows(context){
+	context.save();
+	context.shadowColor = "rgba(0,0,0,0.9)";
+	context.shadowBlur = 1;
+	context.shadowOffsetX = 1;
+	context.shadowOffsetY = 1;
+
+
 
 	for (var i = 0; i < Board.length; i++) {
 		if(Board[i] != null){
-			let shadow = {
-				X1: Board[i].X1+2,
-				Y1: Board[i].Y1+2,
-				X2: Board[i].X2+2,
-				Y2: Board[i].Y2+2
-			}
-
-			draw_square(shadow, "#555555", context);
+			draw_square(Board[i], "#93A6AA", context);
 		}
-
-		draw_square(Board[i], "#909590", context);
 	 }
+	 context.restore();
 }
 
 
@@ -65,7 +64,7 @@ function renderBoard(){
 		if(Board[i] != null){
 			switch(Board[i].state){
 				case 1:
-					draw_square(Board[i], "#777788", context);
+					draw_square(Board[i], "#8E9699", context);
 					break;
 					
 				case 2:
